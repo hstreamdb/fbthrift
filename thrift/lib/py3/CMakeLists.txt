@@ -104,6 +104,24 @@ endforeach()
 
 include_directories(${PYTHON_INCLUDE_DIRS})
 
+add_library(
+  thriftenums
+
+  enums.cpp
+)
+target_link_libraries(
+  thriftenums
+  PUBLIC
+    Folly::folly
+)
+
+install(
+  TARGETS
+    thriftenums
+  EXPORT fbthrift-exports
+  DESTINATION ${LIB_INSTALL_DIR}
+)
+
 # Build and Install Thrift Python Bindings using Python setuptools
 install(CODE "
   execute_process(COMMAND
